@@ -1,0 +1,32 @@
+source:
+  format: kafka
+  # Options should be in this format <option>=<value>
+  options:
+    - kafka.bootstrap.servers=localhost:9092
+    - kafkaConsumer.pollTimeoutMs=10000
+    - subscribe=behavioral-data
+    - startingOffsets=latest
+    - failOnDataLoss=false
+
+spark:
+  master: local[*]
+  app-name: EcommerceEtl
+  log-level: ERROR
+  # Configuration should be in this format <config>=<value>
+  configurations:
+  hadoop-configurations:
+
+transform:
+  # mode can be GENERIC (all data go to single table)
+  #   or CATEGORIZED (data are saved on different tables based on a category column)
+  mode: CATEGORIZED
+  base-table: ecomm_event
+  category_column: event_type
+
+writer:
+  destination: /Users/mikebraga/Documents/HDFS
+  format: parquet
+  trigger-time: 10 seconds
+  checkpoint-location: /Users/mikebraga/Documents/HDFS/_checkpoint
+  partitions:
+    - date
