@@ -1,0 +1,72 @@
+app:
+  interval-seconds: 3
+
+kafka:
+  topic: behavioral-data
+  bootstrap-servers: "localhost:9092"
+  acks: all
+  retries: 2
+  batch-size: 16384
+  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+randomizer:
+  total-users: 5
+  total-products: 5
+  random-data-schema:
+      - name: timestamp
+        type: timestamp
+      - name: user_id
+        type: id
+      - name: session_id
+        type: id
+      - name: country
+        type: string
+      - name: language
+        type: string
+      - name: event_type
+        type: enum
+        values:
+          - SEARCHED_KEYWORD
+          - VIEW_PRODUCT
+          - CHANGED_CART
+          - CHECKED_REVIEWS
+          - ADDED_REVIEW
+          - PURCHASED_SUCCESS
+          - PURCHASED_ERROR
+          - PURCHASED_CANCELLED
+      - name: fields
+        type: array
+
+  event-type-fields:
+    SEARCHED_KEYWORD:
+      keyword: string
+      result_count: int
+    VIEW_PRODUCT:
+      product_id: id
+    CHANGED_CART:
+      action: string
+      product_id: id
+      new_total_items: int
+    CHECKED_REVIEWS:
+      product_id: id
+      total_reviews: int
+    ADDED_REVIEW:
+      product_id: id
+      rating: int
+      comment: string
+    PURCHASED_SUCCESS:
+      total_amount: float
+      payment_type: string
+      used_promo: boolean
+    PURCHASED_ERROR:
+      total_amount: float
+      payment_type: string
+      error_type: string
+      error_message: string
+      used_promo: boolean
+    PURCHASED_CANCELLED:
+      total_amount: float
+      payment_type: string
+      reason: string
+      used_promo: boolean
