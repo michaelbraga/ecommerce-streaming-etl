@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>sample</groupId>
 	<artifactId>data-generator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>data-generator</name>
 	<description>Generate time series behavioral data with nested json structure</description>
 

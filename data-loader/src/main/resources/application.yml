@@ -1,0 +1,34 @@
+spark:
+  master: local[*]
+  app-name: EcommerceStreamingEtl
+  log-level: ERROR
+  # Configuration should be in this format <config>=<value>
+  configurations:
+    - spark.sql.sources.partitionOverwriteMode=dynamic
+  hadoop-configurations:
+
+reader:
+  source-location: hdfs://localhost:9000/user/mikebraga/database/staging
+  format: parquet
+  partitions:
+    - date
+
+scanner:
+  includes:
+  excludes:
+    - ".DS_Store"
+    - _checkpoint
+
+loader:
+  # when loading table from stage, level can be:
+  # TABLE: loads the whole table from staging and loaded to final destination
+  # PARTITION: loads partitions from the staging table that are NOT present in final destination
+  #           (partitions from reader and loader should be the same)
+  level: TABLE
+  format: parquet
+  partitions:
+    - date
+  order-by:
+    - user_id=asc
+  destination-location: hdfs://localhost:9000/user/mikebraga/database/final
+  delete-source-on-success: false

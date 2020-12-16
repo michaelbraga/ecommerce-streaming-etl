@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>sample</groupId>
-	<artifactId>spark-streaming-etl</artifactId>
+	<artifactId>data-loader</artifactId>
 	<version>1.0</version>
-	<name>spark-streaming-etl</name>
-	<description>Spark Streaming ETL which will consume data from Kafka, flatten and stores it to HDFS in Parquet format</description>
+	<name>data-loader</name>
+	<description>Loads data from a staging location and performs ordering or merging</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -24,9 +24,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 			<exclusions>
+				<!-- Use SPARK library for these -->
 				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -40,13 +41,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20200518</version>
 		</dependency>
 
 		<!--	SPARK	-->
@@ -65,22 +59,6 @@
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming -->
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-streaming_2.12</artifactId>
-			<version>${spark.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10 -->
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-sql-kafka-0-10_2.12</artifactId>
-			<version>${spark.version}</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -107,4 +85,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

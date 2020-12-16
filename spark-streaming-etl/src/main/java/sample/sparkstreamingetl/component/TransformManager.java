@@ -1,5 +1,6 @@
 package sample.sparkstreamingetl.component;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;

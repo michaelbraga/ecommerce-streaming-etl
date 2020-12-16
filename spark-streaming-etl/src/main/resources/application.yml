@@ -10,7 +10,7 @@ source:
 
 spark:
   master: local[*]
-  app-name: EcommerceEtl
+  app-name: EcommerceStreamingEtl
   log-level: ERROR
   # Configuration should be in this format <config>=<value>
   configurations:
@@ -19,14 +19,14 @@ spark:
 transform:
   # mode can be GENERIC (all data go to single table)
   #   or CATEGORIZED (data are saved on different tables based on a category column)
-  mode: CATEGORIZED
+  mode: GENERIC
   base-table: ecomm_event
   category_column: event_type
 
 writer:
-  destination: /Users/mikebraga/Documents/HDFS
+  destination: hdfs://localhost:9000/user/mikebraga/database/staging
   format: parquet
   trigger-time: 10 seconds
-  checkpoint-location: /Users/mikebraga/Documents/HDFS/_checkpoint
+  checkpoint-location: hdfs://localhost:9000/user/mikebraga/database/checkpoint
   partitions:
     - date
