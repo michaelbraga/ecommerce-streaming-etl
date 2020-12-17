@@ -69,7 +69,7 @@
 ```
 
 2. `Spark Streaming ETL` is a structured streaming application that consumes data from kafka and transforms it to relational data, 
-   and saves it in parquet format (partitioned by "DATE"). There are two modes of transformation, `GENERIC` and `CATEGORIZED`. In `GENERIC` mode, all data are saved
+   and saves it in parquet format (partitioned by "DATE"). There are two modes of transformation, `GENERIC` (default) and `CATEGORIZED`. In `GENERIC` mode, all data are saved
    in 1 table  having this generic structure
 
 `ecomm_event table`
@@ -98,7 +98,7 @@ In `CATEGORIZED` mode data will be saved based on the event_type, for the above 
 | -------- | ---------- | ------- | ---------- | -------- | --------- | ------------ | ------------ | ------ | ---------- | 
 | DZ  | PURCHASED_CANCELLED  | 1c7657a3-... | 46af3268-... | CL | 2020-12-17 04:08:47.326 | 31.90 | jcb | iusto sit nam | true |
 
-3. `Data Loader` reads data from the staging location where Spark Streaming ETL is saving logs. There are 2 modes in loading data, `TABLE` level and `PARTITION` level. 
+3. `Data Loader` reads data from the staging location where Spark Streaming ETL is saving logs. There are 2 modes in loading data, `TABLE` level (default) and `PARTITION` level. 
    `TABLE` level reads the whole table from staging and unions the data with the same table in the final location (if it exists), then overwrites (overwrite=dynamic) 
    the resulting data in the final location. While in `PARTITION` level, data loader retrieves all missing partitions in final table from staging table, and moves the 
    missing partitions from staging to final table. During loading of data, you can configure resulting parquet data to have less files generated compared to the number
