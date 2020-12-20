@@ -92,7 +92,7 @@ In `CATEGORIZED` mode data will be saved based on the event_type, for the above 
 | -------- | ---------- | ------- | ---------- | -------- | --------- | ------------ | ------------ | ---------- |
 | UY  | PURCHASED_SUCCESS  | fb2a5a61-... | 26954947-... | PN | 2020-12-17 03:56:46.63 | 31.90 | jcb | true |
 
-`ecomm_event_purchased_success table`
+`ecomm_event_purchased_cancelled table`
 
 | country  | event_type | user_id | session_id | language | timestamp | total_amount | payment_type | reason | used_promo |
 | -------- | ---------- | ------- | ---------- | -------- | --------- | ------------ | ------------ | ------ | ---------- | 
